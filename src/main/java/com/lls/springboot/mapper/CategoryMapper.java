@@ -10,7 +10,7 @@ import com.lls.springboot.pojo.Category;
 @Mapper
 public interface CategoryMapper {
 
-    @Select("select id,name from anime ")
+    @Select("select id,name_cn from anime ")
     List<Category> findAll();
 
 }

@@ -4,7 +4,7 @@ public class Category {
 
     private int id;
 
-    private String name;
+    private String name_cn;
     public int getId() {
         return id;
     }
@@ -12,10 +12,10 @@ public class Category {
         this.id = id;
     }
     public String getName() {
-        return name;
+        return name_cn;
     }
     public void setName(String name) {
-        this.name = name;
+        this.name_cn = name;
     }
 
 }
