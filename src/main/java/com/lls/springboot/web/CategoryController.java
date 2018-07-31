@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
     @Autowired
     CategoryMapper categoryMapper;
-     
+
     @RequestMapping(value = "/listCategory")
-    public List<Category> listCategory() {
-        PageHelper.startPage(1, 10);
+    public List<Category> listCategory(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return categoryMapper.findAll();
     }
      
