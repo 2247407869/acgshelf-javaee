@@ -2,6 +2,7 @@ package com.lls.springboot.web;
 import java.util.List;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lls.springboot.mapper.CategoryMapper;
 import com.lls.springboot.pojo.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,11 @@ public class CategoryController {
     CategoryMapper categoryMapper;
 
     @RequestMapping(value = "/listCategory")
-    public List<Category> listCategory(int pageNum, int pageSize) {
+    public PageInfo listCategory(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return categoryMapper.findAll();
+        List<Category> list = categoryMapper.findAll();
+        PageInfo pageInfo = new PageInfo(list);
+        return pageInfo;
     }
      
 }
