@@ -3,14 +3,20 @@ package com.lls.springboot.pojo;
 public class Category {
 
     private int id;
-
+    private int rank;
     private String name_cn;
-    private int collection;
+    private String collection;
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public int getRank() {
+        return rank;
+    }
+    public void setRank(int rank) {
+        this.rank = rank;
     }
     public String getName() {
         return name_cn;
@@ -18,10 +24,10 @@ public class Category {
     public void setName(String name) {
         this.name_cn = name;
     }
-    public int getCollection() {
+    public String getCollection() {
         return collection;
     }
-    public void setCollection(int collection) {
+    public void setCollection(String collection) {
         this.collection = collection;
     }
 

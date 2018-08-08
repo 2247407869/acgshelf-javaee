@@ -29,7 +29,7 @@ public class CategoryController {
     @PostMapping(value = "/listCategory/{id}")
     public void changeCollection(HttpServletResponse response,
                                  @PathVariable("id") int id,
-                                 @RequestParam("collection") int collection) {
+                                 @RequestParam("collection") String collection) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         categoryMapper.changeCollection(id, collection);
     }

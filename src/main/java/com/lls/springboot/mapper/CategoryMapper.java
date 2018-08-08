@@ -11,10 +11,10 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface CategoryMapper {
 
-    @Select("select id,name_cn from anime ")
+    @Select("select id,name_cn,collection,rank from anime ")
     List<Category> findAll();
 
     @Update("update anime set collection=#{1} where id=#{0} ")
-    void changeCollection(int id, int collection);
+    void changeCollection(int id, String collection);
 
 }
