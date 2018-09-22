@@ -1,29 +1,23 @@
-package com.lls.springboot.web;
-import java.util.List;
-
-import com.github.pagehelper.PageHelper;
+package com.lls.springboot.controller;
 import com.github.pagehelper.PageInfo;
-import com.lls.springboot.mapper.CategoryMapper;
-import com.lls.springboot.pojo.Category;
+import com.lls.springboot.service.IAnimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RestController
-public class CategoryController {
-    @Autowired
-    CategoryMapper categoryMapper;
 
-    @GetMapping(value = "/listCategory")
-    public PageInfo listCategory(HttpServletResponse response,
+@RestController(value = "/anime")
+public class AnimeController {
+    @Autowired
+    IAnimeService animeService;
+
+    @GetMapping(value = "/rank")//todo 跨域
+    public PageInfo animeRankList(HttpServletResponse response,
                                  @RequestParam("pageNum") int pageNum,
                                  @RequestParam("pageSize") int pageSize) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        PageHelper.startPage(pageNum, pageSize);
-        List<Category> list = categoryMapper.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return pageInfo;
+        return animeService.getAnimeRankList(pageNum, pageSize);
     }
 
     @PostMapping(value = "/listCategory/{id}")
@@ -31,7 +25,6 @@ public class CategoryController {
                                  @PathVariable("id") int id,
                                  @RequestParam("collection") String collection) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        categoryMapper.changeCollection(id, collection);
+        animeService.changeAnimeCollection(id, collection);
     }
-     
 }

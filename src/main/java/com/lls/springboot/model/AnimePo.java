@@ -1,6 +1,6 @@
-package com.lls.springboot.pojo;
+package com.lls.springboot.model;
 
-public class Category {
+public class AnimePo {
 
     private int id;
     private int rank;
