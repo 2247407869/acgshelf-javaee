@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
-
+//@CrossOrigin
 @RestController(value = "/anime")
 public class AnimeController {
     @Autowired
@@ -20,7 +20,7 @@ public class AnimeController {
         return animeService.getAnimeRankList(pageNum, pageSize);
     }
 
-    @PostMapping(value = "/listCategory/{id}")
+    @PostMapping(value = "/{id}")
     public void changeCollection(HttpServletResponse response,
                                  @PathVariable("id") int id,
                                  @RequestParam("collection") String collection) {

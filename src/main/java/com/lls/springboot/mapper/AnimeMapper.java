@@ -2,7 +2,7 @@ package com.lls.springboot.mapper;
 
 import java.util.List;
 
-import com.lls.springboot.pojo.Anime;
+import com.lls.springboot.model.AnimePo;
 import org.apache.ibatis.annotations.*;
 
 @Mapper
@@ -16,7 +16,7 @@ public interface AnimeMapper {
             @Result(property = "airDate", column = "air_date")
     })
     @Select("select * from anime ")
-    List<Anime> findAll();
+    List<AnimePo> findAll();
 
     @Update("update anime set collection=#{1} where id=#{0} ")
     void changeCollection(int id, String collection);
