@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 //@CrossOrigin
-@RestController(value = "/anime")
+@RestController
+@RequestMapping(value = "/anime")
 public class AnimeController {
     @Autowired
     IAnimeService animeService;
