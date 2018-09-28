@@ -27,4 +27,9 @@ public class AnimeController {
         response.setHeader("Access-Control-Allow-Origin", "*");
         animeService.changeAnimeCollection(id, collection);
     }
+
+    @GetMapping(value = "/hello")
+    public String helloworld (){
+        return "helloworld";
+    }
 }
