@@ -9,12 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
-    private AnyUserDetailsService anyUserDetailsService;
-
     @Autowired
-    public void setAnyUserDetailsService(AnyUserDetailsService anyUserDetailsService){
-        this.anyUserDetailsService = anyUserDetailsService;
-    }
+    AnyUserDetailsService anyUserDetailsService;
 
     /**
      * 匹配 "/" 路径，不需要权限即可访问

@@ -16,16 +16,12 @@ import java.util.List;
 @Service
 public class AnyUserDetailsService implements UserDetailsService {
 
-    private final IUserService userService;
-
     @Autowired
-    AnyUserDetailsService(IUserService userService){
-        this.userService = userService;
-    }
+    IUserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserPo userPo = IUserService.getByUsername(username);
+        UserPo userPo = userService.getByUsername(username);
         if (userPo == null){
             throw new UsernameNotFoundException("用户不存在！");
         }
