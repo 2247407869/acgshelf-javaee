@@ -4,6 +4,7 @@ import com.lls.springboot.dao.IUserDao;
 import com.lls.springboot.model.UserPo;
 import com.lls.springboot.service.IUserService;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +22,7 @@ public class UserService implements IUserService {
         String username = userPo.getUsername();
         if (exist(username))
             return false;
+        encryptPassword(userPo);
         userPo.setRoles("ROLE_USER");
         int result = userDao.insert(userPo);
         return  result == 1;
@@ -41,4 +43,12 @@ public class UserService implements IUserService {
         return (userPo != null);
     }
 
+    /**
+     * 加密密码
+     */
+    private void encryptPassword(UserPo userPo){
+        String password = userPo.getPassword();
+        password = new BCryptPasswordEncoder().encode(password);
+        userPo.setPassword(password);
+    }
 }
