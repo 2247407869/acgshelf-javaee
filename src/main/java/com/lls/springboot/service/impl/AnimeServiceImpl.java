@@ -2,18 +2,18 @@ package com.lls.springboot.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lls.springboot.dao.IAnimeDao;
+import com.lls.springboot.dao.AnimeDao;
 import com.lls.springboot.model.AnimePo;
-import com.lls.springboot.service.IAnimeService;
+import com.lls.springboot.service.AnimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AnimeService implements IAnimeService {
+public class AnimeServiceImpl implements AnimeService {
     @Autowired
-    private IAnimeDao animeDao;
+    private AnimeDao animeDao;
     @Override
     public PageInfo getAnimeRankList(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);

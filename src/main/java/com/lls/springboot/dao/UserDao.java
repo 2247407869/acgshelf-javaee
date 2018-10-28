@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Mapper
 @Component
-public interface IUserDao {
+public interface UserDao {
 
     @Insert("insert into users(username, password, nickname, roles) values(#{username}, #{password}, #{nickname}, #{roles})")
     int insert(UserPo userPo);

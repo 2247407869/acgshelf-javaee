@@ -1,19 +1,19 @@
 package com.lls.springboot.service.impl;
 
-import com.lls.springboot.dao.IUserDao;
+import com.lls.springboot.dao.UserDao;
 import com.lls.springboot.model.UserPo;
-import com.lls.springboot.service.IUserService;
+import com.lls.springboot.service.UserService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @Primary
-public class UserService implements IUserService {
+public class UserServiceImpl implements UserService {
 
-    private final IUserDao userDao;
+    private final UserDao userDao;
 
-    public UserService(IUserDao userDao){
+    public UserServiceImpl(UserDao userDao){
         this.userDao = userDao;
     }
 

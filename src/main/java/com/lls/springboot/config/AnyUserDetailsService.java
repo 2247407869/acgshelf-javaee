@@ -1,7 +1,7 @@
 package com.lls.springboot.config;
 
 import com.lls.springboot.model.UserPo;
-import com.lls.springboot.service.IUserService;
+import com.lls.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AnyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    IUserService userService;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

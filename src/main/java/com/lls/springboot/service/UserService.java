@@ -3,7 +3,7 @@ package com.lls.springboot.service;
 
 import com.lls.springboot.model.UserPo;
 
-public interface IUserService {
+public interface UserService {
 
     /**
      * 添加新用户

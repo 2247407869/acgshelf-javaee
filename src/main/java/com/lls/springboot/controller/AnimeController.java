@@ -1,6 +1,6 @@
 package com.lls.springboot.controller;
 import com.github.pagehelper.PageInfo;
-import com.lls.springboot.service.IAnimeService;
+import com.lls.springboot.service.AnimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/anime")
 public class AnimeController {
     @Autowired
-    IAnimeService animeService;
+    AnimeService animeService;
 
     @GetMapping(value = "/rank")//todo 跨域
     public PageInfo animeRankList(HttpServletResponse response,
