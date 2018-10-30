@@ -1,19 +1,42 @@
 package com.lls.springboot.util;
 
+import com.lls.springboot.model.TokenUserAuthentication;
 import com.lls.springboot.model.TokenUserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.security.core.Authentication;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-public class JwtUtils {
-    private static final long VALIDITY_TIME_MS = 43200000‬;
+public class JwtTokenUtil {
+    private static final long VALIDITY_TIME_MS = 43200000L;
+    private String secret = "lls";
+    /**
+     * header中标识
+     */
+    private static final String AUTH_HEADER_NAME = "x-authorization";
+
+    /**
+     * 验签
+     */
+    public Optional<Authentication> verifyToken(HttpServletRequest request) {
+        final String token = request.getHeader(AUTH_HEADER_NAME);
+        if (token != null && !token.isEmpty()){
+            final TokenUserDTO user = parse(token.trim());
+            if (user != null) {
+                return Optional.of(new TokenUserAuthentication(user, true));
+            }
+        }
+        return Optional.empty();
+    }
 
     /**
      * 从用户中创建一个jwt Token
@@ -21,11 +44,7 @@ public class JwtUtils {
      * @return token
      */
     public String create(TokenUserDTO userDTO) {
-        String base64Security = "jiami";
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(base64Security);
-        Key secret = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         return Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + VALIDITY_TIME_MS))
