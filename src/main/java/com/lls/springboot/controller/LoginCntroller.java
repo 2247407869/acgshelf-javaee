@@ -28,7 +28,7 @@ public class LoginCntroller {
     /**
      * 该链接获取token
      */
-    @GetMapping("/loginByJWT")
+    @GetMapping("/login")
     public Map login(String username, String password) {
         Map<String, Object> map = new HashMap<>();
         if (!StringUtils.equals(username, "demo") || !StringUtils.equals(password, "demo")) {
