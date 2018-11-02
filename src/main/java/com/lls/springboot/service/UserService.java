@@ -3,6 +3,8 @@ package com.lls.springboot.service;
 
 import com.lls.springboot.model.UserDTO;
 
+import java.util.Map;
+
 public interface UserService {
 
     /**
@@ -11,7 +13,7 @@ public interface UserService {
      * username 唯一， 默认 USER 权限
      * @param userPo
      */
-    boolean insert(UserDTO userPo);
+    Map<String, Object> insert(UserDTO userPo);
 
     /**
      * 查询用户信息
@@ -20,4 +22,5 @@ public interface UserService {
      */
     UserDTO getByUsername(String username);
 
+    Map login(UserDTO userDTO);
 }

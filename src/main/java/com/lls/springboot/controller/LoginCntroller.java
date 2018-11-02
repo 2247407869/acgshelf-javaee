@@ -1,11 +1,14 @@
 package com.lls.springboot.controller;
 
 import com.lls.springboot.model.UserDTO;
+import com.lls.springboot.service.UserService;
 import com.lls.springboot.util.JwtTokenUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -22,30 +25,19 @@ import com.google.common.collect.Lists;
 @RestController
 public class LoginCntroller {
 
-    @Resource
-    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 该链接获取token
      */
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Map login(String username, String password) {
-        Map<String, Object> map = new HashMap<>();
-        if (!StringUtils.equals(username, "demo") || !StringUtils.equals(password, "demo")) {
-            map.put("status", 4);
-            map.put("msg", "登录失败,用户名密码错误");
-            return map;
-        }
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(username);
-        userDTO.setRoles("ROLE_ADMIN");
-        userDTO.setId(1L);
-        userDTO.setEmail("1015315668@qq.com");
-        userDTO.setAvatar("ahahhahahhaha");
-        map.put("status", 1);
-        map.put("msg", "Success");
-        map.put("token", jwtTokenUtil.create(userDTO));
-        return map;
+        userDTO.setPassword(password);
+        return userService.login(userDTO);
     }
 
     /**

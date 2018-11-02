@@ -6,6 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,8 @@ import java.util.Optional;
 
 public class JwtTokenUtil {
     private static final long VALIDITY_TIME_MS = 43200000L;
-    private String secret = "lls";
+    @Value("${jwt.token.secret}")
+    private String secret;
     /**
      * header中标识
      */

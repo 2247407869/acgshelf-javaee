@@ -15,17 +15,14 @@ public class RegisterController {
     @Autowired
     private UserService userService;
     /**
-     * 该链接获取token
+     * 该链接注册用户
      */
     @PostMapping("/register")
     public Map login(String email, String username, String password) {
-        Map<String, Object> map = new HashMap<>();
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(email);
         userDTO.setUsername(username);
         userDTO.setPassword(password);
-        userService.insert(userDTO);
-        map.put("msg", "Success");
-        return map;
+        return userService.insert(userDTO);
     }
 }
