@@ -1,12 +1,10 @@
 package com.lls.springboot.controller;
 
-import com.google.common.collect.Lists;
-import com.lls.springboot.model.TokenUserDTO;
-import com.lls.springboot.model.UserPo;
+import com.lls.springboot.model.UserDTO;
 import com.lls.springboot.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -19,14 +17,15 @@ public class RegisterController {
     /**
      * 该链接获取token
      */
-    @GetMapping("/register")
+    @PostMapping("/register")
     public Map login(String email, String username, String password) {
         Map<String, Object> map = new HashMap<>();
-        TokenUserDTO tokenUserDTO = new TokenUserDTO();
-        tokenUserDTO.setEmail(email);
-        tokenUserDTO.setUsername(username);
-        tokenUserDTO.setPassword(password);
-        userService.insert(tokenUserDTO);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(email);
+        userDTO.setUsername(username);
+        userDTO.setPassword(password);
+        userService.insert(userDTO);
+        map.put("msg", "Success");
         return map;
     }
 }

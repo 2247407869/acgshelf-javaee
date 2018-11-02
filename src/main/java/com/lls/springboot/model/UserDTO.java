@@ -5,11 +5,11 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TokenUserDTO {
+public class UserDTO {
     private Long id;
     private String username;
     private String email;
     private String avatar;
-    private List<String> roles;
+    private String roles;
     private String password;
 }

@@ -1,8 +1,7 @@
 package com.lls.springboot.service;
 
 
-import com.lls.springboot.model.TokenUserDTO;
-import com.lls.springboot.model.UserPo;
+import com.lls.springboot.model.UserDTO;
 
 public interface UserService {
 
@@ -12,13 +11,13 @@ public interface UserService {
      * username 唯一， 默认 USER 权限
      * @param userPo
      */
-    boolean insert(TokenUserDTO userPo);
+    boolean insert(UserDTO userPo);
 
     /**
      * 查询用户信息
      * @param username 账号
      * @return UserEntity
      */
-    UserPo getByUsername(String username);
+    UserDTO getByUsername(String username);
 
 }

@@ -1,7 +1,6 @@
 package com.lls.springboot.dao;
 
-import com.lls.springboot.model.TokenUserDTO;
-import com.lls.springboot.model.UserPo;
+import com.lls.springboot.model.UserDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDao {
 
-    @Insert("insert into users(username, password, nickname, roles) values(#{username}, #{password}, #{nickname}, #{roles})")
-    int insert(TokenUserDTO userPo);
+    @Insert("insert into users(email, username, password, roles) values(#{email}, #{username}, #{password}, #{roles})")
+    int insert(UserDTO userDTO);
 
     @Select("select * from users where username = #{username}")
-    UserPo selectByUsername(@Param("username") String username);
+    UserDTO selectByUsername(@Param("username") String username);
 
 }

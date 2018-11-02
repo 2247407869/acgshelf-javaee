@@ -1,8 +1,7 @@
 package com.lls.springboot.service.impl;
 
 import com.lls.springboot.dao.UserDao;
-import com.lls.springboot.model.TokenUserDTO;
-import com.lls.springboot.model.UserPo;
+import com.lls.springboot.model.UserDTO;
 import com.lls.springboot.service.UserService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,18 +20,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean insert(TokenUserDTO tokenUserDTO) {
-        String username = tokenUserDTO.getUsername();
+    public boolean insert(UserDTO userDTO) {
+        String username = userDTO.getUsername();
         if (exist(username))
             return false;
-        encryptPassword(tokenUserDTO);
-        tokenUserDTO.setRoles(Collections.singletonList("ROLE_USER"));
-        int result = userDao.insert(tokenUserDTO);
+        encryptPassword(userDTO);
+        userDTO.setRoles("ROLE_USER");
+        int result = userDao.insert(userDTO);
         return  result == 1;
     }
 
     @Override
-    public UserPo getByUsername(String username) {
+    public UserDTO getByUsername(String username) {
         return userDao.selectByUsername(username);
     }
 
@@ -42,17 +41,17 @@ public class UserServiceImpl implements UserService {
      * @return 密码
      */
     private boolean exist(String username){
-        UserPo userPo = userDao.selectByUsername(username);
-        return (userPo != null);
+        UserDTO userDTO = userDao.selectByUsername(username);
+        return (userDTO != null);
     }
 
     /**
      * 加密密码
-     * @param userPo
+     * @param userDTO
      */
-    private void encryptPassword(TokenUserDTO userPo){
-        String password = userPo.getPassword();
+    private void encryptPassword(UserDTO userDTO){
+        String password = userDTO.getPassword();
         password = new BCryptPasswordEncoder().encode(password);
-        userPo.setPassword(password);
+        userDTO.setPassword(password);
     }
 }

@@ -1,6 +1,6 @@
 package com.lls.springboot.controller;
 
-import com.lls.springboot.model.TokenUserDTO;
+import com.lls.springboot.model.UserDTO;
 import com.lls.springboot.util.JwtTokenUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
@@ -36,9 +36,9 @@ public class LoginCntroller {
             map.put("msg", "登录失败,用户名密码错误");
             return map;
         }
-        TokenUserDTO userDTO = new TokenUserDTO();
+        UserDTO userDTO = new UserDTO();
         userDTO.setUsername(username);
-        userDTO.setRoles(Lists.newArrayList("ROLE_ADMIN"));
+        userDTO.setRoles("ROLE_ADMIN");
         userDTO.setId(1L);
         userDTO.setEmail("1015315668@qq.com");
         userDTO.setAvatar("ahahhahahhaha");
@@ -52,12 +52,12 @@ public class LoginCntroller {
      * 该链接尝试获取登录用户,返回该认证用户的信息,请求该链接需要在header中放入x-authorization: token
      */
     @GetMapping("/detailByJWT")
-    public TokenUserDTO userDetail() {
+    public UserDTO userDetail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.isNull(authentication)) {
             return null;
         }
-        return (TokenUserDTO) authentication.getDetails();
+        return (UserDTO) authentication.getDetails();
     }
 
 }

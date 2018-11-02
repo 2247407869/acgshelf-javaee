@@ -18,17 +18,4 @@ public class HomeController {
     public String root(){
         return "index";
     }
-
-    @GetMapping("/register")
-    public String register(){
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String doRegister(UserPo userPo){
-        // 此处省略校验逻辑
-        if (userService.insert(userPo))
-            return "redirect:register?success";
-        return "redirect:register?error";
-    }
 }

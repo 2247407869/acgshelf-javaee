@@ -1,17 +1,14 @@
 package com.lls.springboot.util;
 
-import com.lls.springboot.model.TokenUserAuthentication;
-import com.lls.springboot.model.TokenUserDTO;
+import com.lls.springboot.model.UserAuthentication;
+import com.lls.springboot.model.UserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.security.core.Authentication;
 
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.DatatypeConverter;
-import java.security.Key;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +27,9 @@ public class JwtTokenUtil {
     public Optional<Authentication> verifyToken(HttpServletRequest request) {
         final String token = request.getHeader(AUTH_HEADER_NAME);
         if (token != null && !token.isEmpty()){
-            final TokenUserDTO user = parse(token.trim());
+            final UserDTO user = parse(token.trim());
             if (user != null) {
-                return Optional.of(new TokenUserAuthentication(user, true));
+                return Optional.of(new UserAuthentication(user, true));
             }
         }
         return Optional.empty();
@@ -43,7 +40,7 @@ public class JwtTokenUtil {
      * @param userDTO 用户
      * @return token
      */
-    public String create(TokenUserDTO userDTO) {
+    public String create(UserDTO userDTO) {
 
 
         return Jwts.builder()
@@ -60,17 +57,17 @@ public class JwtTokenUtil {
     /**
      * 从token中取出用户
      */
-    public TokenUserDTO parse(String token) {
+    public UserDTO parse(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
-        TokenUserDTO userDTO = new TokenUserDTO();
+        UserDTO userDTO = new UserDTO();
         userDTO.setId(NumberUtils.toLong(claims.getId()));
         userDTO.setAvatar(claims.get("avatar",String.class));
         userDTO.setUsername(claims.get("username",String.class));
         userDTO.setEmail(claims.get("email",String.class));
-        userDTO.setRoles((List<String>) claims.get("roles"));
+        userDTO.setRoles(claims.get("roles",String.class));
         return userDTO;
     }
 }

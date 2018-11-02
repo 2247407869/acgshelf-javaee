@@ -1,11 +1,12 @@
 package com.lls.springboot.model;
 
-import com.lls.springboot.model.TokenUserDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -13,23 +14,29 @@ import java.util.stream.Collectors;
  * @author Niu Li
  * @since 2017/6/28
  */
-public class TokenUserAuthentication implements Authentication {
+public class UserAuthentication implements Authentication {
 
     private static final long serialVersionUID = 3730332217518791533L;
 
-    private TokenUserDTO userDTO;
+    private UserDTO userDTO;
 
     private Boolean authentication = false;
 
-    public TokenUserAuthentication(TokenUserDTO userDTO, Boolean authentication) {
+    public UserAuthentication(UserDTO userDTO, Boolean authentication) {
         this.userDTO = userDTO;
         this.authentication = authentication;
     }
     //这里的权限是FilterSecurityInterceptor做权限验证使用
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userDTO.getRoles().stream()
-                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+//        return userDTO.getRoles().stream()
+//                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        String[] roles = userDTO.getRoles().split(",");
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        for (String role : roles) {
+            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(role));
+        }
+        return simpleGrantedAuthorities;
     }
 
     @Override
