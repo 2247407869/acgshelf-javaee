@@ -51,8 +51,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map login(UserDTO userDTO) {
         Map<String, Object> map = new HashMap<>();
+        UserDTO queryedUserDTO = userDao.selectByUsername(userDTO.getUsername());
         if (!new BCryptPasswordEncoder().matches(userDTO.getPassword(),
-                userDao.selectByUsername(userDTO.getUsername()).getPassword())) {
+                queryedUserDTO.getPassword())) {
             map.put("status", 1);
             map.put("msg", "登录失败,用户名密码错误");
             return map;
@@ -60,6 +61,7 @@ public class UserServiceImpl implements UserService {
         map.put("status", 0);
         map.put("msg", "Success");
         map.put("token", jwtTokenUtil.create(userDTO));
+        map.put("username", queryedUserDTO.getUsername());
         return map;
     }
 

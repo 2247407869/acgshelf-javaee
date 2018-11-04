@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //每一个请求对应一个空的filter链,这里一般不要配置过多,
         // 因为查找处是一个for循环,过多就导致每个请求都需要循环一遍直到找到
-        web.ignoring().antMatchers("/","/login","/favicon.ico");
+        web.ignoring().antMatchers("/","/favicon.ico");
     }
 
     /**
