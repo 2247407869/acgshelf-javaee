@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface AnimeDao {
 
-    @Select("select * from animes ")
+    @Select("select * from animes order by rank")
     List<AnimePo> getAnimeRankList();
 
     @Update("update animes set collection=#{collection} where id=#{id} ")

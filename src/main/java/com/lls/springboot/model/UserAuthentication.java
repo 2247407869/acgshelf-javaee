@@ -7,7 +7,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Spring Security中存放的认证用户
@@ -29,14 +31,8 @@ public class UserAuthentication implements Authentication {
     //这里的权限是FilterSecurityInterceptor做权限验证使用
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return userDTO.getRoles().stream()
-//                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-        String[] roles = userDTO.getRoles().split(",");
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        for (String role : roles) {
-            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(role));
-        }
-        return simpleGrantedAuthorities;
+        return Stream.of(userDTO.getRoles().split(",")).collect(Collectors.toList()).stream()
+                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override

@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         }
         map.put("status", 0);
         map.put("msg", "Success");
-        map.put("token", jwtTokenUtil.create(userDTO));
+        map.put("token", jwtTokenUtil.create(queryedUserDTO));
         map.put("username", queryedUserDTO.getUsername());
         return map;
     }
