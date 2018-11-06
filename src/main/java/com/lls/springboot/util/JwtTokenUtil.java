@@ -48,7 +48,7 @@ public class JwtTokenUtil {
         return Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + VALIDITY_TIME_MS))
                 .setSubject(userDTO.getUsername())
-                .claim("id", userDTO.getId().toString())
+                .claim("id", userDTO.getId())
                 .claim("email", userDTO.getEmail())
                 .claim("roles", userDTO.getRoles())
                 .signWith(SignatureAlgorithm.HS256, secret)
@@ -64,8 +64,9 @@ public class JwtTokenUtil {
                 .parseClaimsJws(token)
                 .getBody();
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(NumberUtils.toLong(claims.get("id",String.class)));
-        userDTO.setUsername(claims.get("sub",String.class));
+        userDTO.setId(NumberUtils.toLong(claims.getId()));
+        userDTO.setAvatar(claims.get("avatar",String.class));
+        userDTO.setUsername(claims.getSubject());
         userDTO.setEmail(claims.get("email",String.class));
         userDTO.setRoles(claims.get("roles",String.class));
         return userDTO;
