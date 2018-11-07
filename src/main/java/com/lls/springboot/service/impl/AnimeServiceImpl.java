@@ -22,7 +22,7 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public void changeAnimeCollection(int id, String collection) {
-        animeDao.changeCollection(id, collection);
+    public void changeAnimeCollection(int id, String collection, Long userDTOId) {
+        animeDao.changeCollection(id, collection, userDTOId);
     }
 }
