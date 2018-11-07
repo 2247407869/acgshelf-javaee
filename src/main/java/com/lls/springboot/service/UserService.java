@@ -23,4 +23,6 @@ public interface UserService {
     UserDTO getByUsername(String username);
 
     Map login(UserDTO userDTO);
+
+    Map refreshToken(UserDTO userDTO);
 }

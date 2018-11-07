@@ -16,6 +16,7 @@ import java.util.Optional;
 
 public class JwtTokenUtil {
     private static final long VALIDITY_TIME_MS = 43200000L;
+//    private static final long VALIDITY_TIME_MS = 10000L;
     @Value("${jwt.token.secret}")
     private String secret;
     /**

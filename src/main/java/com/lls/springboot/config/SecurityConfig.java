@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 //角色定义,Spring Security会在其前面自动加上ROLE_,因此存储权限的时候也要加上ROLE_ADMIN
-                .antMatchers("/detailByJWT").access("hasRole('USER')")
+                .antMatchers("/refreshToken").access("hasRole('USER')")
                 .anyRequest().permitAll().and()
                 //异常处理,可以再此使用entrypoint来定义错误输出
                 .exceptionHandling().and()

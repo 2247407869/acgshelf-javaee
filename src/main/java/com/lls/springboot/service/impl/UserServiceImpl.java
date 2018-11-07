@@ -65,6 +65,16 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
+    @Override
+    public Map refreshToken(UserDTO userDTO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", 0);
+        map.put("msg", "Success");
+        map.put("token", jwtTokenUtil.create(userDTO));
+        map.put("username", userDTO.getUsername());
+        return map;
+    }
+
     /**
      * 判断用户是否存在
      * @param username 账号

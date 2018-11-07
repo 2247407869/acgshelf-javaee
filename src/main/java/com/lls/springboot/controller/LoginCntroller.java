@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,13 +44,14 @@ public class LoginCntroller {
     /**
      * 该链接尝试获取登录用户,返回该认证用户的信息,请求该链接需要在header中放入x-authorization: token
      */
-    @GetMapping("/detailByJWT")
-    public UserDTO userDetail() {
+    @GetMapping("/refreshToken")
+    public Map userDetail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.isNull(authentication)) {
             return null;
         }
-        return (UserDTO) authentication.getDetails();
+        UserDTO userDTO = (UserDTO) authentication.getDetails();
+        return userService.refreshToken(userDTO);
     }
 
 }
