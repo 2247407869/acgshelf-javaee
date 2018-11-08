@@ -19,17 +19,16 @@ public class AnimeController {
     @GetMapping(value = "/rank")
     public PageInfo animeRankList(@RequestParam("pageNum") int pageNum,
                                   @RequestParam("pageSize") int pageSize) {
-        return animeService.getAnimeRankList(pageNum, pageSize);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDTO userDTO = (UserDTO) authentication.getDetails();
+        return animeService.getAnimeRankList(pageNum, pageSize, userDTO);
     }
 
     @PostMapping(value = "/{id}")
     public void changeCollection(@PathVariable("id") int id,
                                  @RequestParam("collection") String collection) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (Objects.isNull(authentication)) {
-            return;
-        }
         UserDTO userDTO = (UserDTO) authentication.getDetails();
-        animeService.changeAnimeCollection(id, collection, userDTO.getId());
+        animeService.changeAnimeCollection(id, collection, userDTO);
     }
 }
