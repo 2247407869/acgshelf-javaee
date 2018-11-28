@@ -35,21 +35,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.16</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <!--&lt;!&ndash; tomcat的支持.&ndash;&gt;-->
-        <!--<dependency>-->
-               <!--<groupId>org.apache.tomcat.embed</groupId>-->
-               <!--<artifactId>tomcat-embed-jasper</artifactId>-->
-        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-devtools</artifactId>-->
             <!--<optional>true</optional> &lt;!&ndash; 这个需要为 true 热部署才有效 &ndash;&gt;-->
-            <!--<scope>true</scope>-->
+            <!--<scope>dev</scope>-->
         <!--</dependency>-->
 
         <!-- mybatis -->
@@ -58,6 +58,18 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>1.1.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+        </dependency>
+
+        <!--&lt;!&ndash; tomcat的支持.&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.tomcat.embed</groupId>-->
+            <!--<artifactId>tomcat-embed-jasper</artifactId>-->
+        <!--</dependency>-->
 
         <!-- mysql -->
         <dependency>
@@ -72,23 +84,20 @@
             <version>1.2.5</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
         <!--jwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.7.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+
+        <!--commons-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.collections</groupId>
             <artifactId>google-collections</artifactId>
@@ -101,8 +110,8 @@
         <java.version>1.8</java.version>
     </properties>
 
-    <build>
-        <plugins>
+    <!--<build>-->
+        <!--<plugins>-->
             <!--<plugin>-->
                 <!--<groupId>org.springframework.boot</groupId>-->
                 <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
@@ -111,7 +120,19 @@
                     <!--<fork>true</fork>-->
                 <!--</configuration>-->
             <!--</plugin>-->
-        </plugins>
-    </build>
+        <!--</plugins>-->
+    <!--</build>-->
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
 </project>

@@ -1,13 +1,10 @@
-package com.lls.springboot.model;
+package com.lls.springboot.domain;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,18 +17,18 @@ public class UserAuthentication implements Authentication {
 
     private static final long serialVersionUID = 3730332217518791533L;
 
-    private UserDTO userDTO;
+    private User user;
 
     private Boolean authentication = false;
 
-    public UserAuthentication(UserDTO userDTO, Boolean authentication) {
-        this.userDTO = userDTO;
+    public UserAuthentication(User user, Boolean authentication) {
+        this.user = user;
         this.authentication = authentication;
     }
     //这里的权限是FilterSecurityInterceptor做权限验证使用
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Stream.of(userDTO.getRoles().split(",")).collect(Collectors.toList()).stream()
+        return Stream.of(user.getRoles().split(",")).collect(Collectors.toList()).stream()
                 .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
@@ -42,12 +39,12 @@ public class UserAuthentication implements Authentication {
 
     @Override
     public Object getDetails() {
-        return userDTO;
+        return user;
     }
 
     @Override
     public Object getPrincipal() {
-        return userDTO.getUsername();
+        return user.getUsername();
     }
 
     @Override
@@ -62,6 +59,6 @@ public class UserAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return userDTO.getUsername();
+        return user.getUsername();
     }
 }

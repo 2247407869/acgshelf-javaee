@@ -1,7 +1,7 @@
 package com.lls.springboot.util;
 
-import com.lls.springboot.model.UserAuthentication;
-import com.lls.springboot.model.UserDTO;
+import com.lls.springboot.domain.UserAuthentication;
+import com.lls.springboot.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 public class JwtTokenUtil {
@@ -30,7 +29,7 @@ public class JwtTokenUtil {
     public Optional<Authentication> verifyToken(HttpServletRequest request) {
         final String token = request.getHeader(AUTH_HEADER_NAME);
         if (token != null && !token.isEmpty()){
-            final UserDTO user = parse(token.trim());
+            final User user = parse(token.trim());
             if (user != null) {
                 return Optional.of(new UserAuthentication(user, true));
             }
@@ -40,18 +39,18 @@ public class JwtTokenUtil {
 
     /**
      * 从用户中创建一个jwt Token
-     * @param userDTO 用户
+     * @param user 用户
      * @return token
      */
-    public String create(UserDTO userDTO) {
+    public String create(User user) {
 
 
         return Jwts.builder()
                 .setExpiration(new Date(System.currentTimeMillis() + VALIDITY_TIME_MS))
-                .setSubject(userDTO.getUsername())
-                .claim("id", userDTO.getId().toString())
-                .claim("email", userDTO.getEmail())
-                .claim("roles", userDTO.getRoles())
+                .setSubject(user.getUsername())
+                .claim("id", user.getId().toString())
+                .claim("email", user.getEmail())
+                .claim("roles", user.getRoles())
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
@@ -59,17 +58,17 @@ public class JwtTokenUtil {
     /**
      * 从token中取出用户
      */
-    public UserDTO parse(String token) {
+    public User parse(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(NumberUtils.toLong(claims.get("id",String.class)));
-        userDTO.setAvatar(claims.get("avatar",String.class));
-        userDTO.setUsername(claims.getSubject());
-        userDTO.setEmail(claims.get("email",String.class));
-        userDTO.setRoles(claims.get("roles",String.class));
-        return userDTO;
+        User user = new User();
+        user.setId(NumberUtils.toLong(claims.get("id",String.class)));
+        user.setAvatar(claims.get("avatar",String.class));
+        user.setUsername(claims.getSubject());
+        user.setEmail(claims.get("email",String.class));
+        user.setRoles(claims.get("roles",String.class));
+        return user;
     }
 }

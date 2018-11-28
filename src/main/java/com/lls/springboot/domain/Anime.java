@@ -1,10 +1,15 @@
-package com.lls.springboot.model;
+package com.lls.springboot.domain;
 
 import lombok.Data;
 
-@Data
-public class AnimePo {
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
+@Data
+@Entity
+public class Anime {
+  @Id
   private long id;
   private String url;
   private String name;
@@ -21,7 +26,8 @@ public class AnimePo {
   private String imagesSmall;
   private String imagesGrid;
   private long collectionCollect;
-  private long userId;
   private long collection;
+//  @OneToMany(mappedBy="anime",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+//  private Set<AnimeUser> animeUsers = new HashSet<AnimeUser>();
 
 }

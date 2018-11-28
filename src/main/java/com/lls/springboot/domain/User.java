@@ -1,11 +1,17 @@
-package com.lls.springboot.model;
+package com.lls.springboot.domain;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 
 @Data
-public class UserDTO {
+@Entity
+public class User {
+    @Id
     private Long id;
     private String username;
     private String email;

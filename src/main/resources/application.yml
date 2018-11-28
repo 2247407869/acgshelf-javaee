@@ -13,6 +13,11 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: lls0908329
+#  jpa:
+#    properties:
+#      hibernate:
+#        hbm2ddl:
+#          auto: update
 
 mybatis:
   configuration:

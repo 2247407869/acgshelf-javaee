@@ -1,23 +1,16 @@
 package com.lls.springboot.controller;
 
-import com.lls.springboot.model.UserDTO;
+import com.lls.springboot.domain.User;
 import com.lls.springboot.service.UserService;
-import com.lls.springboot.util.JwtTokenUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import com.google.common.collect.Lists;
 
 /**
  * @author Niu Li
@@ -35,10 +28,10 @@ public class LoginCntroller {
      */
     @PostMapping("/login")
     public Map login(String username, String password) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(username);
-        userDTO.setPassword(password);
-        return userService.login(userDTO);
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        return userService.login(user);
     }
 
     /**
@@ -50,8 +43,8 @@ public class LoginCntroller {
         if (Objects.isNull(authentication)) {
             return null;
         }
-        UserDTO userDTO = (UserDTO) authentication.getDetails();
-        return userService.refreshToken(userDTO);
+        User user = (User) authentication.getDetails();
+        return userService.refreshToken(user);
     }
 
 }
