@@ -8,8 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>acgshelf</name>
     <description>springboot</description>
-    <packaging>war</packaging>
-  
+    <packaging>jar</packaging>
   
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -110,18 +109,18 @@
         <java.version>1.8</java.version>
     </properties>
 
-    <!--<build>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <!--<configuration>-->
                     <!--&lt;!&ndash; fork: 如果没有配置该项配置，devtools不会起作用的，即应用不会restear &ndash;&gt;-->
                     <!--<fork>true</fork>-->
                 <!--</configuration>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>

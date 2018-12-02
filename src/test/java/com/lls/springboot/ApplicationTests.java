@@ -29,4 +29,10 @@ public class ApplicationTests {
         System.out.println("查询结果： " + new PageInfo<>(anime));
     }
 
+    @Test
+    public void divideTest() {
+        int i = 3/2;
+        System.out.println("测试结果： " + i);
+    }
+
 }
