@@ -8,7 +8,8 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface AnimeDao {
 
-    @Select("select * from anime left join anime_user on (anime.id = anime_user.anime_id) " +
+    @Select("select id,url,name_cn,rank,eps_count,air_date,images_small,collection " +
+            "from anime left join anime_user on (anime.id = anime_user.anime_id) " +
             "and anime_user.user_id = #{id} " +
             "order by rank")
     List<Anime> getAnimeRankList(@Param("id") Long id);
@@ -19,4 +20,7 @@ public interface AnimeDao {
                           @Param("collection") String collection,
                           @Param("userDTOId") Long userDTOId);
 
+    @Select("select id,url,name_cn,rank,eps_count,air_date,images_small " +
+            "from anime order by rank")
+    List<Anime> getAnimeRankListForGuest();
 }

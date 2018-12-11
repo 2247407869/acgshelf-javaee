@@ -7,4 +7,6 @@ public interface AnimeService {
     PageInfo getAnimeRankList(int pageNum, int pageSize, User user);
 
     void changeAnimeCollection(int id, String collection, User userId);
+
+    PageInfo getAnimeRankListForGuest(int pageNum, int pageSize);
 }

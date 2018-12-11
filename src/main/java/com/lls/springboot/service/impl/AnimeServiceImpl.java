@@ -26,4 +26,11 @@ public class AnimeServiceImpl implements AnimeService {
     public void changeAnimeCollection(int id, String collection, User userId) {
         animeDao.changeCollection(id, collection, userId.getId());
     }
+
+    @Override
+    public PageInfo getAnimeRankListForGuest(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Anime> list = animeDao.getAnimeRankListForGuest();
+        return new PageInfo<>(list);
+    }
 }
