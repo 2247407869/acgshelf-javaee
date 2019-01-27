@@ -18,10 +18,11 @@ public class AnimeController {
 
     @GetMapping(value = "/rank")
     public PageInfo animeRankList(@RequestParam("pageNum") int pageNum,
-                                  @RequestParam("pageSize") int pageSize) {
+                                  @RequestParam("pageSize") int pageSize,
+                                  @RequestParam("order") String order) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDTO userDTO = (UserDTO) authentication.getDetails();
-        return animeService.getAnimeRankList(pageNum, pageSize, userDTO);
+        return animeService.getAnimeRankList(pageNum, pageSize, userDTO, order);
     }
 
     @PostMapping(value = "/{id}")

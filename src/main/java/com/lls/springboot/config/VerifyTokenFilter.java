@@ -35,7 +35,7 @@ public class VerifyTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             Optional<Authentication> authentication = jwtTokenUtil.verifyToken(request);
-            log.debug("VerifyTokenFilter result: {}",authentication.orElse(null));
+//            log.debug("VerifyTokenFilter result: {}",authentication.orElse(null));
             SecurityContextHolder.getContext().setAuthentication(authentication.orElse(null));
             filterChain.doFilter(request,response);
         } catch (JwtException e) {

@@ -16,9 +16,9 @@ public class AnimeServiceImpl implements AnimeService {
     @Autowired
     private AnimeDao animeDao;
     @Override
-    public PageInfo getAnimeRankList(int pageNum, int pageSize, UserDTO userDTO) {
+    public PageInfo getAnimeRankList(int pageNum, int pageSize, UserDTO userDTO, String order) {
         PageHelper.startPage(pageNum, pageSize);
-        List<AnimePo> list = animeDao.getAnimeRankList(userDTO.getId());
+        List<AnimePo> list = animeDao.getAnimeRankList(userDTO.getId(), order);
         return new PageInfo<>(list);
     }
 

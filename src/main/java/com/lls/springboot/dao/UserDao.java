@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDao {
 
-    @Insert("insert into users(email, username, password, roles) values(#{email}, #{username}, #{password}, #{roles})")
+    @Insert("insert into user(email, username, password, roles) values(#{email}, #{username}, #{password}, #{roles})")
     int insert(UserDTO userDTO);
 
-    @Select("select * from users where username = #{username}")
+    @Select("select * from user where username = #{username}")
     UserDTO selectByUsername(@Param("username") String username);
 
 }
