@@ -1,6 +1,6 @@
 package com.lls.springboot.controller;
 import com.github.pagehelper.PageInfo;
-import com.lls.springboot.model.UserDTO;
+import com.lls.springboot.domain.User;
 import com.lls.springboot.service.AnimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,15 +21,18 @@ public class AnimeController {
                                   @RequestParam("pageSize") int pageSize,
                                   @RequestParam("order") String order) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDTO userDTO = (UserDTO) authentication.getDetails();
-        return animeService.getAnimeRankList(pageNum, pageSize, userDTO, order);
+        if (authentication.getPrincipal().equals("anonymousUser")) {
+            return animeService.getAnimeRankListForGuest(pageNum, pageSize);
+        }
+        User user = (User) authentication.getDetails();
+        return animeService.getAnimeRankList(pageNum, pageSize, user, order);
     }
 
     @PostMapping(value = "/{id}")
     public void changeCollection(@PathVariable("id") int id,
                                  @RequestParam("collection") String collection) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDTO userDTO = (UserDTO) authentication.getDetails();
-        animeService.changeAnimeCollection(id, collection, userDTO);
+        User user = (User) authentication.getDetails();
+        animeService.changeAnimeCollection(id, collection, user);
     }
 }
