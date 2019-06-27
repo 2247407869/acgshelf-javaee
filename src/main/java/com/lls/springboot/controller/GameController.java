@@ -2,6 +2,7 @@ package com.lls.springboot.controller;
 import com.github.pagehelper.PageInfo;
 import com.lls.springboot.domain.User;
 import com.lls.springboot.service.AnimeService;
+import com.lls.springboot.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,22 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 @RestController
-@RequestMapping(value = "/item")
-public class AnimeController {
+@RequestMapping(value = "/game")
+public class GameController {
     @Autowired
-    AnimeService animeService;
+    GameService gameService;
 
     @GetMapping(value = "/rank")
-    public PageInfo animeRankList(@RequestParam("pageNum") int pageNum,
+    public PageInfo gameRankList(@RequestParam("pageNum") int pageNum,
                                   @RequestParam("pageSize") int pageSize,
-                                  @RequestParam("order") String order,
-                                  @RequestParam("type") int type) {
+                                  @RequestParam("order") String order) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal().equals("anonymousUser")) {
-            return animeService.getAnimeRankListForGuest(pageNum, pageSize, type);
+            return gameService.getGameRankListForGuest(pageNum, pageSize);
         }
         User user = (User) authentication.getDetails();
-        return animeService.getAnimeRankList(pageNum, pageSize, user, order, type);
+        return gameService.getGameRankList(pageNum, pageSize, user, order);
     }
 
     @PostMapping(value = "/{id}")
@@ -34,6 +34,6 @@ public class AnimeController {
                                  @RequestParam("collection") String collection) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getDetails();
-        animeService.changeAnimeCollection(id, collection, user);
+        gameService.changeGameCollection(id, collection, user);
     }
 }

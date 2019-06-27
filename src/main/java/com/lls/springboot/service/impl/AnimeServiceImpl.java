@@ -16,7 +16,7 @@ public class AnimeServiceImpl implements AnimeService {
     @Autowired
     private AnimeDao animeDao;
     @Override
-    public PageInfo getAnimeRankList(int pageNum, int pageSize, User user, String order) {
+    public PageInfo getAnimeRankList(int pageNum, int pageSize, User user, String order, int type) {
         PageHelper.startPage(pageNum, pageSize);
         List<Anime> list = animeDao.getAnimeRankList(user.getId(), order);
         return new PageInfo<>(list);
@@ -28,7 +28,7 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public PageInfo getAnimeRankListForGuest(int pageNum, int pageSize) {
+    public PageInfo getAnimeRankListForGuest(int pageNum, int pageSize, int type) {
         PageHelper.startPage(pageNum, pageSize);
         List<Anime> list = animeDao.getAnimeRankListForGuest();
         return new PageInfo<>(list);

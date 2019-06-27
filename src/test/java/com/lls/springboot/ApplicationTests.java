@@ -25,8 +25,8 @@ public class ApplicationTests {
     @Test
     public void contextLoads() {
         PageHelper.startPage(1, 10);
-        List<Anime> anime = animeDao.getAnimeRankList((long) 1);
-        System.out.println("查询结果： " + new PageInfo<>(anime));
+//        List<Anime> anime = animeDao.getAnimeRankList((long) 1);
+//        System.out.println("查询结果： " + new PageInfo<>(anime));
     }
 
     @Test
